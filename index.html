@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manufacturing Request</title>
+</head>
+<body>
+  <h2>Check Product Availability</h2>
+  <input type="text" id="productInput" placeholder="Enter product name">
+  <button onclick="checkProduct()">Submit</button>
+  <p id="result"></p>
+
+  <script>
+    async function checkProduct() {
+      const product = document.getElementById('productInput').value;
+      const response = await fetch('http://localhost:5001/check', {
+
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: product })
+      });
+      const data = await response.json();
+      document.getElementById('result').textContent = data.message;
+    }
+  </script>
+</body>
+</html>
